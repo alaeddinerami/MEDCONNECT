@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SpecialiteController;
+use App\Http\Controllers\MedicineController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,14 @@ Route::get('/specialties/create/index', [SpecialiteController::class, 'index'])-
 Route::post('/specialties/store', [SpecialiteController::class, 'store'])->name('specialties.store');
 Route::delete('/specialties/{specialite}', [SpecialiteController::class, 'destroy'])->name('specialties.destroy');
 Route::put('/specialties/update/{specialite}', [SpecialiteController::class, 'update'])->name('specialties.update');
+
+///////////
+
+Route::get('/medicines', [MedicineController::class, 'index'])->name('medicines.index');
+Route::post('/medicines', [MedicineController::class, 'store'])->name('medicines.store');
+Route::put('/medicines/{medicine}', [MedicineController::class, 'update'])->name('medicines.update');
+Route::delete('/medicines/{medicine}', [MedicineController::class, 'destroy'])->name('medicines.destroy');
+
 
 Route::get('/', function () {
     return view('welcome');
