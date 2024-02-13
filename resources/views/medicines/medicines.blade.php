@@ -24,7 +24,7 @@
                                     <span class="block sm:inline">{{ session('addsuccess') }}</span>
                                 </div>
                             @endif
-                            <form action="{{ route('medicines.store') }}" method="POST">
+                            <form action="{{ route('medicines.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-4">
                                     <label for="namemedicine"
@@ -37,12 +37,13 @@
                                     <label for="description"
                                         class="block text-sm font-medium text-gray-700">Description:</label>
                                     <textarea name="description" id="description"
-                                        class="mt-1 p-2 block w-full border-gray-300 rounded-md focus:outline-none focus:border-teal-500"
-                                        required></textarea>
+                                        class="mt-1 p-2 block w-full border-gray-300 rounded-md focus:outline-none focus:border-teal-500" required></textarea>
                                 </div>
                                 <div class="mb-4">
                                     <label class="block text-sm font-medium text-gray-700">choose images</label>
-                                    <input type="file" class="border-2 border-gray-300 p-2 w-full  focus:outline-none focus:border-teal-500" name="image[]" multiple id="description" >
+                                    <input type="file"
+                                        class="border-2 border-gray-300 p-2 w-full  focus:outline-none focus:border-teal-500"
+                                        name="image" :value="old('image')" multiple id="description">
                                 </div>
                                 <div class="flex items-center justify-end mt-4">
                                     <button type="submit"
@@ -70,6 +71,9 @@
                                                 class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 ID</th>
                                             <th
+                                                class="px-8 py-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Images</th>
+                                            <th
                                                 class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Name</th>
                                             <th
@@ -91,6 +95,11 @@
                                                         {{ $medicine->id }}</div>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
+                                                    <img src="{{ asset('storage/' . $medicine->image->path) }}"
+                                                        class="w-[60px] h-[60px] inline-block shrink-0 rounded-2xl"
+                                                        alt="">
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
                                                     <div class="text-sm font-medium text-gray-900">
                                                         {{ $medicine->namemedicine }}</div>
                                                 </td>
@@ -103,9 +112,9 @@
                                                         {{ $medicine->status == 1 ? 'Active' : 'Inactive' }}</div>
                                                 </td>
                                                 <td class="px-8 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                    <butto href=""
-                                                        class="text-teal-500 hover:text-teal-700"
-                                                        onclick="openEditModal({{ $medicine->id }}, '{{ $medicine->namemedicine }}', '{{ $medicine->description }}')">Edit</butto>
+                                                    <butto href="" class="text-teal-500 hover:text-teal-700"
+                                                        onclick="openEditModal({{ $medicine->id }}, '{{ $medicine->namemedicine }}', '{{ $medicine->description }}')">
+                                                        Edit</butto>
                                                     <form action="{{ route('medicines.destroy', $medicine->id) }}"
                                                         method="POST" class="inline-block">
                                                         @csrf
@@ -147,10 +156,9 @@
                                                         <label for="editDescription"
                                                             class="block text-sm font-medium text-gray-700">Description:</label>
                                                         <textarea name="editDescription" id="editDescription"
-                                                            class="mt-1 p-2 block w-full border-gray-300 rounded-md focus:outline-none focus:border-teal-500"
-                                                            required></textarea>
+                                                            class="mt-1 p-2 block w-full border-gray-300 rounded-md focus:outline-none focus:border-teal-500" required></textarea>
                                                     </div>
-                                                   
+
                                                     <div class="flex items-center justify-end mt-4">
                                                         <button type="submit"
                                                             class="bg-teal-500 text-white px-4 py-2 rounded-md hover:bg-teal-600 focus:outline-none focus:bg-teal-600">Update

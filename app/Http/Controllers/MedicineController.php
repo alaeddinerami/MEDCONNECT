@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\ImageUpload;
 use App\Models\Medicine;
 use Illuminate\Http\Request;
 
 class MedicineController extends Controller
 {
+    use ImageUpload;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         //
-        $medicines = Medicine::all();
+        $medicines = Medicine::with('Image')->get();;
         return view('medicines.medicines', compact('medicines'));
     }
 
@@ -40,7 +42,8 @@ class MedicineController extends Controller
 
         ]);
 
-        Medicine::create($validatedData);
+        $medicine =Medicine::create($validatedData);
+        $this->storeImg($request->file('image'), $medicine);
 
         return redirect()->back()->with('addsuccess', 'Medicine created successfully!');
 
