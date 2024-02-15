@@ -10,6 +10,7 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="flex flex-col lg:flex-row">
                     <!-- Sidebar -->
+   
                     <x-sidebar></x-sidebar>
 
                     <!-- Main Content -->
@@ -38,6 +39,19 @@
                                         class="block text-sm font-medium text-gray-700">Description:</label>
                                     <textarea name="description" id="description"
                                         class="mt-1 p-2 block w-full border-gray-300 rounded-md focus:outline-none focus:border-teal-500" required></textarea>
+                                </div>
+                                <div id="doctorOptions" class="mt-4 mb-5" >
+                                    <label for="specialty"
+                                        class="block text-sm font-medium text-gray-700">Specialty</label>
+                                    <select id="specialty" name="speciality"
+                                        class="mt-1 p-2 block w-full border-gray-300 rounded-md focus:outline-none focus:border-teal-500">
+
+                                        @foreach ($specialties as $specialite)
+                                            <option value="{{ $specialite->id }}">{{ $specialite->namespecialite }}</option>
+                                        @endforeach
+
+                                        <!-- Add more specialties as needed -->
+                                    </select>
                                 </div>
                                 <div class="mb-4">
                                     <label class="block text-sm font-medium text-gray-700">choose images</label>
@@ -111,6 +125,7 @@
                                                     <div class="text-sm font-medium text-gray-900">
                                                         {{ $medicine->status == 1 ? 'Active' : 'Inactive' }}</div>
                                                 </td>
+                                                
                                                 <td class="px-8 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                     <butto href="" class="text-teal-500 hover:text-teal-700"
                                                         onclick="openEditModal({{ $medicine->id }}, '{{ $medicine->namemedicine }}', '{{ $medicine->description }}')">

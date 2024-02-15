@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Specialite;
 use App\Traits\ImageUpload;
 use App\Models\Medicine;
 use Illuminate\Http\Request;
@@ -15,8 +16,9 @@ class MedicineController extends Controller
     public function index()
     {
         //
+        $specialties = Specialite::all();
         $medicines = Medicine::with('Image')->get();;
-        return view('medicines.medicines', compact('medicines'));
+        return view('medicines.medicines', compact('medicines','specialties'));
     }
 
     /**
@@ -38,11 +40,14 @@ class MedicineController extends Controller
         $validatedData = $request->validate([
             'namemedicine' => 'required',
             'description' => 'required',
+            'speciality' => 'required',
             
 
         ]);
 
-        $medicine =Medicine::create($validatedData);
+
+        $medicine = Medicine::create(array_merge($validatedData, ['speciality_id' => $validatedData['speciality']]));
+
         $this->storeImg($request->file('image'), $medicine);
 
         return redirect()->back()->with('addsuccess', 'Medicine created successfully!');

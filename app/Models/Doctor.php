@@ -21,4 +21,10 @@ class Doctor extends Model
     {
         return $this->belongsTo(Specialite::class, 'idspecialite');
     }
+
+    public function appointement(){
+        return $this->hasMany(Appointement::class, 'doctorID');
+    }
+
+    
 }

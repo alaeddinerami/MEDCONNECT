@@ -43,7 +43,7 @@ class AuthenticatedSessionController extends Controller
         // Redirection basée sur le rôle de l'utilisateur
         $user = Auth::user(); // Récupérez l'utilisateur authentifié
         if ($user->role == 'doctor') {
-            return redirect('/doctor/index');
+            return redirect('/doctor');
         } elseif ($user->role == 'patient') {
             return redirect('/patient/index');
         }
@@ -63,6 +63,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/');
     }
 }

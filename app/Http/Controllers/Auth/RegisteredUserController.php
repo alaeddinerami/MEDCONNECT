@@ -61,11 +61,16 @@ class RegisteredUserController extends Controller
             }
 
         }
+        if ($validatedData['role'] === 'patient') {
+            $user->patient()->create([
+                'userID' => $user->id
+            ]);
+        }
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return $request->role == 'doctor' ? redirect('/doctor/index') : redirect('/patient/index');
+        return $request->role == 'doctor' ? redirect('/doctor') : redirect('/patient/index');
     }
 }

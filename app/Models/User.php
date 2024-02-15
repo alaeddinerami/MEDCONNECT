@@ -16,6 +16,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(Doctor::class, 'iduser');
     }
+    public function patient(){
+        return $this->hasMany(Patient::class, 'id');
+    }
+
+   
+
 
     /**
      * The attributes that are mass assignable.

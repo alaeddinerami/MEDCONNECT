@@ -13,4 +13,8 @@ class Specialite extends Model
     {
         return $this->hasMany(Doctor::class, 'idspecialite');
     }
+
+    public function medicine(){
+        return $this->hasMany(Medicine::class);
+    }
 }

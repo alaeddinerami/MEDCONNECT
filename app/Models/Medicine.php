@@ -13,7 +13,11 @@ class Medicine extends Model
     use HasFactory;
     use SoftDeletes;
     use  ImageUpload;
-    protected $fillable = ['namemedicine', 'description', 'status'];
+    protected $fillable = ['namemedicine', 'description', 'status', 'speciality_id'];
+
+    public function speciality(){
+        return $this->belongsTo(Specialite::class);
+    }    
 
     public function image(): MorphOne
     {
