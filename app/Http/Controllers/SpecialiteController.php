@@ -17,6 +17,14 @@ class SpecialiteController extends Controller
         return view('specialties.create', compact('specialties'));
 
     }
+    public function specialtyPatient()
+    {
+        $specialties = Specialite::all();
+      
+        // dd($specialties);
+        return view('patient.index', ['specialties'=> $specialties]);
+
+    }
 
     /**
      * Show the form for creating a new resource.

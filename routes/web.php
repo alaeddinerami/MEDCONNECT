@@ -3,7 +3,9 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SpecialiteController;
 use App\Http\Controllers\MedicineController;
 use App\Models\Appointement;
@@ -40,7 +42,15 @@ Route::put('doctor/{medicine}', [DoctorController::class, 'update'])->name('doct
 Route::delete('doctor/{medicine}', [DoctorController::class, 'destroy'])->name('doctor.destroy');
 
 route::get('/patient/index/appointements', [AppointmentController::class,'index'])->name('appointements.index');
+Route::get('/patient', [SpecialiteController::class, 'specialtyPatient'])->name('specialtyPatient.index');
 route::put('/patient/index/appointements', [AppointmentController::class,'update'])->name('appointements.update');
+Route::get('/patient/explore/{specialite}', [PatientController::class, 'explore'])->name('patient.explore');
+// Route::get('/patient/{doctor}', [PatientController::class, 'show'])->name('doctor.show');
+
+
+Route::post('/patient/store', [ReviewController::class, 'store'])->name('review.store');
+Route::get('/patient/{doctor}', [ReviewController::class, 'show'])->name('doctor.show');
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -67,12 +77,12 @@ Route::middleware('auth')->group(function () {
     // })->name('doctor.appointements');
 
    
-    Route::get('/patient/index', function () {
-        if (auth()->user()->role === 'patient') {
-            return view('patient.index'); 
-        }
-        return redirect('/');
-    })->name('patient.index');
+    // Route::get('/patient/index', function () {
+    //     if (auth()->user()->role === 'patient') {
+    //         return view('patient.index'); 
+    //     }
+    //     return redirect('/');
+    // })->name('patient.index');
 
     // Route::get('/doctor/index', function () {
     //     if (auth()->user()->role === 'doctor') {

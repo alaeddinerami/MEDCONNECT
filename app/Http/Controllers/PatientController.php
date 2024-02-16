@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Doctor;
 use App\Models\Patient;
+use App\Models\Specialite;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PatientController extends Controller
 {
@@ -13,6 +17,14 @@ class PatientController extends Controller
     public function index()
     {
         //
+    }
+    public function explore(Specialite $Specialite, User $SpecialiteUser)
+    {
+        if (auth()->user()->role === 'patient') {
+            $doctors = Specialite::find($Specialite->id)->doctors;
+            return view('patient.explore', compact('doctors'));
+        }
+        return redirect('/');
     }
 
     /**
@@ -34,9 +46,11 @@ class PatientController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Patient $patient)
+    public function show( Doctor $doctor, Patient $patient)
     {
-        //
+        $patient = Patient::where('userID', Auth::id())->first();
+            return view('patient.rating', compact('doctor','patient'));
+        
     }
 
     /**

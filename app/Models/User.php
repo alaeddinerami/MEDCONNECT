@@ -14,7 +14,7 @@ class User extends Authenticatable
 
     public function doctor()
     {
-        return $this->hasOne(Doctor::class, 'iduser');
+        return $this->hasMany(Doctor::class, 'iduser');
     }
     public function patient(){
         return $this->hasMany(Patient::class, 'id');
