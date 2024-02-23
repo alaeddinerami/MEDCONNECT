@@ -42,83 +42,107 @@
                                 src="https://images.unsplash.com/photo-1484608856193-968d2be4080e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2134&q=80"
                                 alt="" />
                         </div>
-                        
+
                         <div class="flex flex-col justify-center items-center">
                             <h1 class="text-gray-500 text-xs"></h1>
                             <h1 class="text-gray-600 text-sm"></h1>
                         </div>
                     </div>
                     <div class="flex items-center">
-                      
-                      <div class="flex items-center space-x-1">
-                          @for ($i = 1; $i <= 5; $i++)
-                              @if ($i <= $averageStars)
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-                                      <path fill-rule="evenodd" d="M19.708 7.783a1 1 0 00-.933-.659l-6.263-.55L10.934.55a1 1 0 00-1.868 0l-1.578 6.024-6.263.55a1 1 0 00-.548 1.705l5.158 3.75-1.578 6.024a1 1 0 001.454 1.054l5.354-3.75 5.354 3.75a1 1 0 001.454-1.054l-1.578-6.024 5.158-3.75a1 1 0 00.268-1.046z" clip-rule="evenodd" />
-                                  </svg>
-                              @else
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
-                                      <path fill-rule="evenodd" d="M19.708 7.783a1 1 0 00-.933-.659l-6.263-.55L10.934.55a1 1 0 00-1.868 0l-1.578 6.024-6.263.55a1 1 0 00-.548 1.705l5.158 3.75-1.578 6.024a1 1 0 001.454 1.054l5.354-3.75 5.354 3.75a1 1 0 001.454-1.054l-1.578-6.024 5.158-3.75a1 1 0 00.268-1.046z" clip-rule="evenodd" />
-                                  </svg>
-                              @endif
-                          @endfor
-                      </div>
-                  </div> 
-                    <div class="w-full h-1/2 flex flex-col justify-center items-center gap-5">
-                        <div>
-                          <h1 class="text-gray-700 font-bold mt-3">{{ $doctor->user->name }}</h1>
-                        <h1 class="text-gray-500 text-sm">{{ $doctor->Specialite->namespecialite }}</h1>
-                      </div>
-                        <a href="{{ route('appointements.index') }}" type="button"
+
+                        <div class="flex items-center space-x-1">
+                            @for ($i = 1; $i <= 5; $i++)
+                                @if ($i <= $averageStars)
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M19.708 7.783a1 1 0 00-.933-.659l-6.263-.55L10.934.55a1 1 0 00-1.868 0l-1.578 6.024-6.263.55a1 1 0 00-.548 1.705l5.158 3.75-1.578 6.024a1 1 0 001.454 1.054l5.354-3.75 5.354 3.75a1 1 0 001.454-1.054l-1.578-6.024 5.158-3.75a1 1 0 00.268-1.046z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M19.708 7.783a1 1 0 00-.933-.659l-6.263-.55L10.934.55a1 1 0 00-1.868 0l-1.578 6.024-6.263.55a1 1 0 00-.548 1.705l5.158 3.75-1.578 6.024a1 1 0 001.454 1.054l5.354-3.75 5.354 3.75a1 1 0 001.454-1.054l-1.578-6.024 5.158-3.75a1 1 0 00.268-1.046z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                @endif
+                            @endfor
+                        </div>
+                    </div>
+                    <div class="w-full h-1/2 flex flex-col justify-center items-center ">
+
+                        <h1 class="text-gray-700 font-bold ">{{ $doctor->user->name }}</h1>
+                        <h1 class="text-gray-500 text-sm mb-3">{{ $doctor->Specialite->namespecialite }}</h1>
+                    </div>
+                    <div class="flex ">
+                        <a href="{{ route('appointements.index', ['doctor'=>$doctor]) }}" type="button"
                             class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">reservation</a>
+
+                        <form action="{{ route('favorites.add') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="doctorID" value="{{ $doctor->id }}">
+                            <input type="hidden" name="patientID" value="{{ $patient->id }}">
+                            <button type="submit"
+                                class="text-white bg-yellow-500 hover:bg-yellow-800 focus:outline-none focus:ring-4  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                  <path stroke="currentColor" stroke-width="2" d="M11 5.1a1 1 0 0 1 2 0l1.7 4c.1.4.4.6.8.6l4.5.4a1 1 0 0 1 .5 1.7l-3.3 2.8a1 1 0 0 0-.3 1l1 4a1 1 0 0 1-1.5 1.2l-3.9-2.3a1 1 0 0 0-1 0l-4 2.3a1 1 0 0 1-1.4-1.1l1-4.1c.1-.4 0-.8-.3-1l-3.3-2.8a1 1 0 0 1 .5-1.7l4.5-.4c.4 0 .7-.2.8-.6l1.8-4Z"/>
+                                </svg>
+                            </button>
+                        </form>
                     </div>
                 </div>
-                
+
                 <div class="flex w-full justify-end px-6">
                     <button onclick="showreview()"
                         class="rounded-lg bg-cyan-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-orange-500/20 transition-all hover:shadow-lg hover:shadow-orange-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                         data-ripple-light="true">
-                        Add comment
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 10.5h0m-4 0h0m-4 0h0M5 5h14c.6 0 1 .4 1 1v9c0 .6-.4 1-1 1h-6.6a1 1 0 0 0-.7.3L8.8 19c-.3.3-.8 0-.8-.4V17c0-.6-.4-1-1-1H5a1 1 0 0 1-1-1V6c0-.6.4-1 1-1Z"/>
+                        </svg>
                     </button>
                 </div>
                 <div class=" min-h-screen bg-gray-100 py-10 ">
-                  <div class="px-10">
-                    <div class="flex flex-wrap  gap-4">
-                      @foreach($reviews as $review)
-                      @if( $review->doctorID == $doctor->id)
-                      <div class=" bg-white  max-w-xl rounded-2xl px-10 py-2 shadow-lg hover:shadow-2xl transition duration-500">
-                  
-                            <div class="flex justify-between items-center">
-                                <div class="mt-4 flex items-center space-x-4 py-3">
-                                    <div class="">
-                                        <img class="w-12 h-12 rounded-full"
-                                            src="https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1036&q=80"
-                                            alt="" />
+                    <div class="px-10">
+                        <div class="flex flex-wrap  gap-4">
+                            @foreach ($reviews as $review)
+                                @if ($review->doctorID == $doctor->id)
+                                    <div
+                                        class=" bg-white  max-w-xl rounded-2xl px-10 py-2 shadow-lg hover:shadow-2xl transition duration-500">
+
+                                        <div class="flex justify-between items-center">
+                                            <div class="mt-4 flex items-center space-x-4 py-3">
+                                                <div class="">
+                                                    <img class="w-12 h-12 rounded-full"
+                                                        src="https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1036&q=80"
+                                                        alt="" />
+                                                </div>
+                                                <div class="text-sm font-semibold">{{ $review->patient->user->name }} • </div>
+                                            </div>
+
+                                        </div>
+                                        <div>
+                                            <div class="flex mt-2">
+                                                @for ($i = 0; $i < $review->starCount; $i++)
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        class="h-4 w-4 text-yellow-400" viewBox="0 0 20 20"
+                                                        fill="currentColor">
+                                                        <path
+                                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                    </svg>
+                                                @endfor
+                                            </div>
+                                            <h3
+                                                class=" text-base text-gray-600 font-semibold hover:underline cursor-pointer">
+                                                {{ $review->comment }}</h3>
+                                            <p class="mt-4 text-md text-gray-600"></p>
+
+                                        </div>
                                     </div>
-                                    <div class="text-sm font-semibold">{{$patient->user->name}} • </div>
-                                </div>
-
-                            </div>
-                            <div class="">
-                              <div class="flex mt-2">
-                                @for ($i = 0; $i < $review->starCount; $i++)
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-400"
-                                      viewBox="0 0 20 20" fill="currentColor">
-                                      <path
-                                          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                  </svg>
-                                  @endfor
-                              </div>
-                                <h3 class=" text-base text-gray-600 font-semibold hover:underline cursor-pointer">
-                                  {{$review->comment}}</h3>
-                                <p class="mt-4 text-md text-gray-600"></p>
-
-                            </div>
+                                @endif
+                            @endforeach
                         </div>
-                        @endif
-                        @endforeach
                     </div>
-                  </div>
                 </div>
             </div>
         </div>
@@ -127,15 +151,15 @@
 
 {{-- ///////////////////////////////////////form comment////////////////////////// --}}
 <form
-class="hidden bg-cyan-200 rounded-xl absolute top-[40%] left-[40%] transform -translate-x-[40%] -translate-y-[40%] z-50 justify-center items-center w-[33rem] h-[20rem] sm:fixed sm:top-[25%] sm:left-[32%] sm:transform-none sm:-translate-x-[30%] sm:-translate-y-[30%]"
-    action="{{route('review.store')}}" method="post" id="rev-form">
+    class="hidden bg-cyan-200 rounded-xl absolute top-[40%] left-[40%] transform -translate-x-[40%] -translate-y-[40%] z-50 justify-center items-center w-[33rem] h-[20rem] sm:fixed sm:top-[25%] sm:left-[32%] sm:transform-none sm:-translate-x-[30%] sm:-translate-y-[30%]"
+    action="{{ route('review.store') }}" method="post" id="rev-form">
     <input type="hidden" name="doctorID" id="doctor_id" value="{{ $doctor->id }}">
     <input type="hidden" name="patientID" id="patient_id" value="{{ $patient->id }}">
 
     @csrf
     <div class="grid gap-4 mb-4 sm:grid-cols-2">
 
-      
+
         <div>
             <label for="comment" class="block mb-2 text-sm font-medium text-gray-900 ">Comment</label>
             <input type="text" name="comment"
@@ -159,7 +183,7 @@ class="hidden bg-cyan-200 rounded-xl absolute top-[40%] left-[40%] transform -tr
                 <input type="radio" id="star1" name="starCount" value="5" class="hidden" />
                 <label for="star1" class="starr cursor-pointer text-xl opacity-50 hover:opacity-100 hover:text-3xl"
                     onclick="handleStarClick(this)">⭐️</label>
-                    
+
             </div>
         </div>
 
@@ -183,12 +207,12 @@ class="hidden bg-cyan-200 rounded-xl absolute top-[40%] left-[40%] transform -tr
     </div>
 </form>
 <style>
-  .starr.selected {
-      opacity: 1;
-      /* Change opacity to 1 when selected */
-      font-size: 2rem;
-      /* Adjust text size as desired when selected */
-  }
+    .starr.selected {
+        opacity: 1;
+        /* Change opacity to 1 when selected */
+        font-size: 2rem;
+        /* Adjust text size as desired when selected */
+    }
 </style>
 <script>
     function showreview() {
@@ -207,15 +231,14 @@ class="hidden bg-cyan-200 rounded-xl absolute top-[40%] left-[40%] transform -tr
     }
 
     function handleStarClick(starr) {
-            var stars = document.querySelectorAll('.starr');
-            var clickedIndex = Array.from(stars).indexOf(starr);
+        var stars = document.querySelectorAll('.starr');
+        var clickedIndex = Array.from(stars).indexOf(starr);
 
-            // Loop through stars
-            for (var i = 0; i <= clickedIndex; i++) {
-                stars[i].classList.add('selected');
-            }
+        // Loop through stars
+        for (var i = 0; i <= clickedIndex; i++) {
+            stars[i].classList.add('selected');
         }
-        
+    }
 </script>
 </body>
 

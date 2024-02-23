@@ -48,6 +48,8 @@
                         </svg>
                         <span class="group-hover:text-gray-700">Appointment</span>
                     </a>
+                </li>
+                <li>
                     <a href="{{ route('doctor.index') }}" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path class="fill-current text-gray-600 group-hover:text-cyan-600"
@@ -58,6 +60,8 @@
                         <span class="group-hover:text-gray-700">Midicines</span>
                     </a>
                 </li>
+               
+               
                
             </ul>
         </div>

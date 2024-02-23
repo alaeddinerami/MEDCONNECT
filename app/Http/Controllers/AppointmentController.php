@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointement;
 
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
@@ -11,10 +12,10 @@ class AppointmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Doctor $doctor)
     {
         //
-        $appointements = Appointement::all();
+        $appointements = Doctor::find($doctor->id)->appointement;
         // dd($appointements);
         return view("patient.appointements", compact("appointements"));
     }
@@ -30,9 +31,30 @@ class AppointmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(int $doctorID)
     {
         //
+        $bookingHours = [
+            '8:00 AM',
+            '9:00 AM',
+            '10:00 AM',
+            '11:00 AM',
+            '2:00 PM',
+            '3:00 PM',
+            '4:00 PM',
+            '5:00 PM',
+        ];
+
+        $appointement = new Appointement();
+
+        foreach ($bookingHours as $time) {
+            $appointement->create([
+                'bookingHour' => $time,
+                'date' => now(),
+                'doctorID' => $doctorID,
+                'status' => 0,
+            ]);
+        }
         
     
     }
@@ -59,6 +81,7 @@ class AppointmentController extends Controller
     public function update(Request $request, Appointement $appointment)
     {
         //
+        // dd($request);
         $validatedData = $request->validate([
             'appointementID' => ['required', 'integer'],
             'patientID' => ['required', 'integer'],
@@ -70,6 +93,7 @@ class AppointmentController extends Controller
             'patientID' => $validatedData['patientID'],
             'status' => 1,
         ]);
+
 
         return redirect()->back()->with('success', 'Appointement Booked!');
     }

@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\CertificatController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\DoctorpatientController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
@@ -41,7 +43,8 @@ Route::post('doctor', [DoctorController::class, 'store'])->name('doctor.store');
 Route::put('doctor/{medicine}', [DoctorController::class, 'update'])->name('doctor.update');
 Route::delete('doctor/{medicine}', [DoctorController::class, 'destroy'])->name('doctor.destroy');
 
-route::get('/patient/index/appointements', [AppointmentController::class,'index'])->name('appointements.index');
+route::get('/patient/index/appointements/{doctor}', [AppointmentController::class,'index'])->name('appointements.index');
+route::get('appointements', [AppointmentController::class,'store'])->name('appointements.store');
 Route::get('/patient', [SpecialiteController::class, 'specialtyPatient'])->name('specialtyPatient.index');
 route::put('/patient/index/appointements', [AppointmentController::class,'update'])->name('appointements.update');
 Route::get('/patient/explore/{specialite}', [PatientController::class, 'explore'])->name('patient.explore');
@@ -52,6 +55,17 @@ Route::post('/patient/store', [ReviewController::class, 'store'])->name('review.
 Route::get('/patient/{doctor}', [ReviewController::class, 'show'])->name('doctor.show');
 
 
+Route::get('/favorites', [DoctorpatientController::class, 'show'])->name('favorites.show');
+Route::post('/favorites/add', [DoctorpatientController::class, 'store'])->name('favorites.add');
+Route::post('/favorites/remove', [DoctorPatientController::class, 'removeFromFavorites'])->name('favorites.remove');
+
+
+Route::get('/certificat', [CertificatController::class, 'index'])->name('certificat.show');
+Route::get('/certificat/{appointment}', [CertificatController::class, 'edit'])->name('certificat.edit');
+Route::get('/print/{certificat}', [CertificatController::class, 'show'])->name('showcertificate');
+Route::post('/certificat', [CertificatController::class, 'store'])->name('certificat.store');
+
+ 
 Route::get('/', function () {
     return view('welcome');
 });

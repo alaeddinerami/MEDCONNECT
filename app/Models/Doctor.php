@@ -22,11 +22,22 @@ class Doctor extends Model
         return $this->belongsTo(Specialite::class, 'idspecialite');
     }
 
-    public function appointement(){
+    public function appointement()
+    {
         return $this->hasMany(Appointement::class, 'doctorID');
     }
 
-    public function review(){
-        return $this->hasMany(Review::class,'doctorID');
+    public function review()
+    {
+        return $this->hasMany(Review::class, 'doctorID');
+        
+    }
+    public function doctorpatients()
+    {
+        return $this->hasMany(doctorpatient::class, 'doctorID');
+    }
+    public function Certificatmedecin()
+    {
+        return $this->hasMany(Certificat::class, 'medecin_id');
     }
 }

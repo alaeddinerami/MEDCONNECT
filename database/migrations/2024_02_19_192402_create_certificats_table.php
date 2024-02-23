@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('medicines', function (Blueprint $table) {
+        Schema::create('certificats', function (Blueprint $table) {
             $table->id();
-            $table->string('namemedicine');
-            $table->string('description');
-            $table->unsignedBigInteger('speciality_id');
-            $table->foreign('speciality_id')->references('id')->on('specialites')->onDelete('cascade');
-            $table->boolean('status')->default(true);
+            $table->date('date_consultation');
+            $table->integer('nomberjr');
+            $table->foreignid('patient_id')->constrained('patients')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignid('medecin_id')->constrained('doctors')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('medicines');
+        Schema::dropIfExists('certificats');
     }
 };

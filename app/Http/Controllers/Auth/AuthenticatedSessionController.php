@@ -45,7 +45,7 @@ class AuthenticatedSessionController extends Controller
         if ($user->role == 'doctor') {
             return redirect('/doctor');
         } elseif ($user->role == 'patient') {
-            return redirect('/patient/index');
+            return redirect('/patient');
         }
 
         // Redirection par défaut

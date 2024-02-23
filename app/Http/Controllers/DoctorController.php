@@ -27,9 +27,10 @@ class DoctorController extends Controller
     }
     public function appointementDoctor()
     {
-        //
-        //
+        
+        
         $appointements = Appointement::all();
+        // dd($appointements);
         $specialties = Specialite::all();
         $medicines = Medicine::with('Image')->get();
         // dd($specialties);

@@ -24,4 +24,14 @@ class Patient extends Model
     public function review(){
         return $this->hasOne(Review::class,'patientID');
     }
+
+    public function Doctorpatients()
+    {
+        return $this->hasMany(Doctorpatient::class, 'patientID');
+    }
+
+    public function certificats()
+{
+    return $this->hasMany(Certificat::class, 'patient_id');
+}
 }

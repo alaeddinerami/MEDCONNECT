@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\Controller;
 use App\Models\Doctor;
 use App\Models\Medecin;
@@ -52,11 +53,15 @@ class RegisteredUserController extends Controller
         ]);
         if ($validatedData['role'] === 'doctor') {
             if (isset($validatedData['specialty'])) {
-                Doctor::create([
+                $doctor = Doctor::create([
                     'iduser' => $user->id,
                     'idspecialite' => $validatedData['specialty']
                 ]);
-            } else {
+                $newAppointements = new AppointmentController();
+                $newAppointements->store($doctor->id);
+                
+            }
+             else {
                 return back()->withInput()->withErrors(['spetiality' => 'Please choose your Sptiality .']);
             }
 

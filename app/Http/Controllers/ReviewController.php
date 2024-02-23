@@ -55,9 +55,9 @@ class ReviewController extends Controller
     public function show(Review $review , Doctor $doctor, Patient $patient)
     {
         //
-        $reviews = Review::all();
+        // $reviews = Review::all();
         $patient = Patient::where('userID', Auth::id())->first();
-        $reviews = Review::where('doctorID', $doctor->id)->get();
+        $reviews = Doctor::find( $doctor->id)->review;
         $averageStars = $reviews->avg('starCount');
         // dd($averageStars);
         return view('patient.rating', compact('reviews','patient','doctor', 'averageStars'));
