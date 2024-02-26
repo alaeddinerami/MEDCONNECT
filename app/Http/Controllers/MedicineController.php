@@ -17,10 +17,11 @@ class MedicineController extends Controller
     {
         //
         $specialties = Specialite::all();
-        $medicines = Medicine::with('Image')->get();;
+        $medicines = Medicine::with('Image')->get();
         return view('medicines.medicines', compact('medicines','specialties'));
     }
 
+    
     /**
      * Show the form for creating a new resource.
      */

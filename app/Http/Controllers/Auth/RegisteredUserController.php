@@ -76,6 +76,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return $request->role == 'doctor' ? redirect('/doctor') : redirect('/patient/index');
+        return $request->role == 'doctor' ? redirect('/doctor') : redirect('/patient');
     }
 }
