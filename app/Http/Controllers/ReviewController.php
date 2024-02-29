@@ -52,7 +52,7 @@ class ReviewController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Review $review , Doctor $doctor, Patient $patient)
+    public function show(Doctor $doctor, Patient $patient)
     {
         //
         // $reviews = Review::all();
